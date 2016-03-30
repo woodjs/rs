@@ -1,4 +1,4 @@
 [package]
-name = "hello_rust"
+name = "print"
 version = "0.1.0"
 authors = ["yanlv.yin <yanlv.yin@servision.com.cn>"]

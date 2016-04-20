@@ -1,0 +1,4 @@
+[package]
+name = "module"
+version = "0.1.0"
+authors = ["yanlv.yin <yanlv.yin@servision.com.cn>"]

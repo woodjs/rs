@@ -2,7 +2,7 @@
 /// binary/library，默认binary，通过--crate-type参数指定编译目标格式
 /// rustc --crate-type=lib test.rs => libtest.rlib
 
-mod test {
+pub mod test {
     pub fn test() {
         private_test();
     }

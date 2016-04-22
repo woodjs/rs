@@ -44,11 +44,32 @@ fn main() {
         fn double_drop(self, _: T);
     }
 
+
     impl<T, U> DoubleDrop<T> for U {
         fn double_drop(self, _: T) {
             println!("curent line is double_drop print!");
         }
     }
 
-    a.double_drop("test"); // curent line is double_drop print!
+    a.double_drop(3); // curent line is double_drop print!
+
+    trait test_bound {
+        fn test_bound(&self);
+    }
+
+    impl test_bound for A {
+        fn test_bound(&self) {
+            println!("test trait bound!");
+        }
+    }
+
+    let b = A;
+
+    // 泛型约束，约束类型必须是trait，i32等类型不是trait
+    fn show_bound<T: test_bound>(i: T) {
+        println!("show trait bound!");
+    }
+
+    b.test_bound(); // test trait bound!
+    show_bound(b); // show trait bound!
 }

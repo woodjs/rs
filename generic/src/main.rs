@@ -1,4 +1,5 @@
 fn main() {
+    use std::fmt::{Debug, Display};
 
     // 新类型A
     struct A;
@@ -63,10 +64,21 @@ fn main() {
         }
     }
 
+    trait test_multi_bound {
+        fn test_multi_bound(&self);
+    }
+
+    impl test_multi_bound for A {
+        fn test_multi_bound(&self) {
+            println!("test test_multi_bound!");
+        }
+    }
+
     let b = A;
 
     // 泛型约束，约束类型必须是trait，i32等类型不是trait
-    fn show_bound<T: test_bound>(i: T) {
+    // +，泛型约束中，所有的trait必须都被实现
+    fn show_bound<T: test_bound + test_multi_bound>(i: T) {
         println!("show trait bound!");
     }
 

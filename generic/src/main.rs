@@ -38,4 +38,17 @@ fn main() {
     let a = Gen(2);
 
     println!("value is {}, generic value is {}", a.print_value(), a.print_gen_value()); // value is 2, generic value is 2
+
+    // 泛型
+    trait DoubleDrop<T> {
+        fn double_drop(self, _: T);
+    }
+
+    impl<T, U> DoubleDrop<T> for U {
+        fn double_drop(self, _: T) {
+            println!("curent line is double_drop print!");
+        }
+    }
+
+    a.double_drop("test"); // curent line is double_drop print!
 }

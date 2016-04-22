@@ -65,16 +65,33 @@ fn main() {
     }
 
     trait test_multi_bound {
+        // 在trait中，type并非定义类型别名的意义
+        type A;
+        type B;
+
         fn test_multi_bound(&self);
+
+        // 注意，2，3两个参数，self首字母大写
+        fn test_associated_type(&self, &Self::A, &Self::B);
     }
 
     impl test_multi_bound for A {
+
+        type A = i32;
+        type B = i32;
+
         fn test_multi_bound(&self) {
             println!("test test_multi_bound!");
+        }
+
+        fn test_associated_type(&self, num1: &i32, num2: &i32) {
+            println!("type A is {}, type B is {}", num1, num2);
         }
     }
 
     let b = A;
+    let c = A;
+
 
     // 泛型约束，约束类型必须是trait，i32等类型不是trait
     // +，泛型约束中，所有的trait必须都被实现
@@ -82,6 +99,13 @@ fn main() {
         println!("show trait bound!");
     }
 
+    fn where_bound<T>(i: T) where
+        T: test_bound + test_multi_bound {
+            println!("show where bound!");
+        }
+
     b.test_bound(); // test trait bound!
     show_bound(b); // show trait bound!
+    where_bound(c); // show where bound!
+    A.test_associated_type(&1, &2); // type A is 1, type B is 2
 }

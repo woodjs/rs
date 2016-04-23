@@ -41,7 +41,6 @@ fn main() {
 
     let d = a.clone();
 
-
     println!("a + b = {:?}", a + c); // a + b = Value
 
     // drop，默认已实现

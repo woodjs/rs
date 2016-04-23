@@ -1,5 +1,7 @@
 fn main() {
     use std::fmt::{Debug, Display};
+    // 幽灵类型，编译时存在，运行时不存在
+    use std::marker::PhantomData;
 
     // 新类型A
     struct A;
@@ -7,6 +9,9 @@ fn main() {
     struct Test(A);
     // 新泛型类型Gen
     struct Gen<T>(T,);
+    // SomeType编译时存在，运行时不存在
+    #[derive(Debug, Clone, Copy)]
+    struct Phantom<SomeType>(i32, PhantomData<SomeType>);
 
     let _t = Test(A);
     let _g: Gen<char> = Gen('a');

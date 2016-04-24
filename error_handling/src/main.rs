@@ -104,9 +104,14 @@ fn main() {
     print_result(b); // current number is 40!
     print_result(c); // error info is : invalid digit found in string!
 
-    fn test_try() -> Result<i32> {
-        Ok(1)
+    // let d = create_some().unwrap();
+    let d = try!(create_some());
+
+    fn create_some() -> Result<i32> {
+        let i = "123";
+
+        i.parse::<i32>()
     }
 
-    let d = try!(test_try());
+    println!("d is {}", d);
 }

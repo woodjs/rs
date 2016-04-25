@@ -10,7 +10,7 @@ fn main() {
     //! Result<T, E>，相比于Option，Result可表达为何失败
     //! Ok(value)
     //! Err(why)
-    //! try!，解决match嵌套的问题，会展开为对应的Ok或Err分支
+    //! try!，解决match嵌套的问题，会展开为对应的Ok或Err分支，如果发生错误会提前返回Result
     //! panic!，会释放所有资源
     //! HashMap，key值可以为实现Eq特性和Hash特性的任意类型，如boolean, integer, string等，大小可伸缩
     //! f32，f64未实现HashMap
@@ -47,24 +47,28 @@ fn main() {
 
     println!("a is {}", a.unwrap()); // a is 1
 
+    #[derive(Debug)]
     enum CustomError {
         TestError
     }
 
-    // type CustomResult = Result<i32, CustomError>;
-    //
-    // fn test_try() -> CustomResult {
-    //     Err(CustomError::TestError)
-    // }
-    //
-    // fn print_result() {
-    //     match try!(test_try()) {
-    //         Err(error) => println!("error message is {}", error),
-    //         Ok(value) => println!("value is {}", value)
-    //     }
-    // }
-    //
-    // print_result();
+    type CustomResult = Result<i32, CustomError>;
+
+    fn test_try(i: i32) -> CustomResult {
+        if i == 0 {
+            Err(CustomError::TestError)
+        } else {
+            Ok(i)
+        }
+    }
+
+    fn print_result(i: i32) -> CustomResult {
+        let a = try!(test_try(i));
+        Ok(a)
+    }
+
+    println!("print_result is {:?}", print_result(0)); // print_result is Err(TestError)
+    println!("print_result is {:?}", print_result(11)); // print_result is Ok(11)
 
     let mut a = HashMap::new();
 

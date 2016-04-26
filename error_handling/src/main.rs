@@ -53,19 +53,15 @@ fn main() {
             });
     }
 
-    fn test_option_and_then() {
-        let opt = create_option();
+    fn test_option_and_then() -> Option<i32> {
+        let opt = Some(23);
 
-        // opt.and_then(and_then_print);
+        opt.and_then(and_then_print)
     }
 
-    fn and_then_print() -> Option<B> {
-        println!("hello, {:?} is printed by and_then!", 123);
-        Some(B::A)
-    }
-
-    fn create_option() -> Option<B> {
-        Some(B::A)
+    fn and_then_print(i: i32) -> Option<i32> {
+        println!("hello, {:?} is printed by and_then!", i);
+        Some(i)
     }
 
     fn double_number(i: &str) -> Result<i32> {
@@ -94,7 +90,7 @@ fn main() {
 
     test_option_map(a); // the value is b!
 
-    //test_option_and_then
+    test_option_and_then(); // hello, 23 is printed by and_then!
 
     let a = double_number("10");
     let b = double_number_map("20");
@@ -104,14 +100,13 @@ fn main() {
     print_result(b); // current number is 40!
     print_result(c); // error info is : invalid digit found in string!
 
-    // let d = create_some().unwrap();
-    let d = try!(create_some());
+    let d = create_result();
 
-    fn create_some() -> Result<i32> {
+    fn create_result() -> Result<i32> {
         let i = "123";
 
-        i.parse::<i32>()
+        Ok(try!(i.parse::<i32>()))
     }
 
-    println!("d is {}", d);
+    println!("d is {:?}", d); // d is Ok(123)
 }

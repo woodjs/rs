@@ -15,6 +15,7 @@ fn main() {
     use std::error::Error;
     use std::fs::File;
     use std::io::prelude::*;
+    use std::process::{Command, Stdio};
 
     // 静态类型变量，必须全部大写
     static NUM: i32 = 3;
@@ -87,4 +88,40 @@ fn main() {
         // out/hello_rust.txt contains:
         // hello rust!!!!!!!!!
     }
+
+    let output = Command::new("rustc")
+                    .arg("--version")
+                    .output().unwrap_or_else(|e| {
+                        panic!("failed to execute process: {}", e);
+                    });
+
+    if output.status.success() {
+        let s = String::from_utf8_lossy(&output.stdout);
+
+        println!("rustc succeeded and stdout was: {}", s);
+    } else {
+        let s = String::from_utf8_lossy(&output.stderr);
+
+        println!("rustc failed and stderr was: {}", s);
+
+        // rustc succeeded and stdout was: rustc 1.5.0 (3d7cd77e4 2015-12-04)
+    }
+
+    // wait
+    let _process = Command::new("sleep").arg("10").spawn();
+
+    println!("reached end of main!");
+
+    // pipe
+    match Command::new("wc")
+                    .stdin(Stdio::piped())
+                    .stdout(Stdio::piped())
+                    .spawn() {
+                        Err(why) => panic!("couldn't spawn wc: {}", Error::description(&why)),
+                        Ok(_) => println!("spawn wc succeeded!")
+
+                        // thread '<main>' panicked at 'couldn't spawn wc: os error', src\main.rs:114
+                        // Process didn't exit successfully: `target\debug\std_misc.exe` (exit code: 101)
+                    };
+
 }

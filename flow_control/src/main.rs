@@ -132,9 +132,9 @@ fn main() {
     println!("w is {}", w); // w is 5
     //println!("w is {}", *w); // 报错
 
-    // Option<i32>，是一个特殊的类型，值必须为None
+    // Option<i32>，是一个特殊的类型
     let a: Option<i32> = None;
-    let b = Some(8); //Some，是一个特殊的类型
+    let b = Some(8);
 
     if let Some(i) = b {
         println!("i is {}", i); // i is 8

@@ -22,7 +22,7 @@ macro_rules! create_func {
 
 fn main() {
 
-    //! 自定义宏，参数名以'$'为前缀，其类型指定为rust定义的一系列designator(标志符)、
+    //! 自定义宏，参数名以'$'为前缀，其类型指定为rust定义的一系列designator(标志符)
 
     //! 所有的designator如下：
     //! block

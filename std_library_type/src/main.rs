@@ -77,6 +77,6 @@ fn main() {
     a.remove("b");
     a.insert("c", "test");
 
-    println!("a is {:?}", a); // a is {"a": "1", "c": "test"}z
+    println!("a is {:?}", a); // a is {"a": "1", "c": "test"}
     println!("a.c is {:?}", a.get(&"c")); // a.c is Some("test")
 }

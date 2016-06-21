@@ -145,6 +145,7 @@ fn main() {
     let mut a = Some(2);
 
     while let Some(i) = a {
+        
         if i == 2 {
             println!("current i is {}", i);
             break;

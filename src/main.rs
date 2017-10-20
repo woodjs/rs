@@ -1,13 +1,8 @@
-mod rc;
-mod arc;
-mod mutex;
-mod rwlock;
-mod cell;
-mod refcell;
+mod chore;
 
-use mutex::test_mutex;
-use rwlock::test_rwlock;
-use refcell::test_refcell;
+use chore::mutex::test_mutex;
+use chore::rwlock::test_rwlock;
+use chore::refcell::test_refcell;
 
 fn main() {
 
